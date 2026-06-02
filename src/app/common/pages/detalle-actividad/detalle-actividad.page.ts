@@ -9,7 +9,7 @@ import {
   IonHeader,
   IonIcon, IonItem, IonLabel, IonList, IonSpinner,
   IonTitle,
-  IonToolbar
+  IonToolbar, NavController
 } from '@ionic/angular/standalone';
 import {addIcons} from "ionicons";
 import {
@@ -73,6 +73,7 @@ export class DetalleActividadPage {
   private fireService = inject(FirestoreService);
   private toastCtrl = inject(ToastController);
   private loadingCtrl = inject(LoadingController);
+  private navCtrl = inject(NavController);
 
   actividadId: string = '';
   actividad: any = null;
@@ -164,6 +165,15 @@ export class DetalleActividadPage {
   volver() {
     this.router.navigate(['/tabs/perfil']);
 
+  }
+
+  volverAtras() {
+    if (window.history.length > 1) {
+      this.navCtrl.back();
+    } else {
+
+      this.navCtrl.navigateBack('/tabs/home');
+    }
   }
 
   abrirChat() {

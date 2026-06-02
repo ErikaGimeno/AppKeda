@@ -9,7 +9,9 @@
       <img [src]="actividad.imageUrl || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" class="hero-image" />
 
       <ion-buttons slot="start" class="btn-back">
-        <ion-back-button text="" icon="arrow-back" style="color: #8A2BE2" defaultHref="/mis-eventos"></ion-back-button>
+        <ion-button fill="clear" (click)="volverAtras()">
+          <ion-icon name="arrow-back" style="color: #8A2BE2"></ion-icon>
+        </ion-button>
       </ion-buttons>
 
       <div class="right-buttons-container">
