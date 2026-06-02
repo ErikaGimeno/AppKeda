@@ -132,14 +132,14 @@ export class FirestoreService {
     if (ultimoDocumento) {
       q = query(
         postsRef,
-        orderBy('fechaCreacion', 'asc'),
+        orderBy('fechaCreacion', 'desc'),
         startAfter(ultimoDocumento),
         limit(limite)
       );
     } else {
       q = query(
         postsRef,
-        orderBy('fechaCreacion', 'asc'),
+        orderBy('fechaCreacion', 'desc'),
         limit(limite)
       );
     }

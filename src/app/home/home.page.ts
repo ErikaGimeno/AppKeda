@@ -1,4 +1,13 @@
-import {Component, inject, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
+import {
+  Component,
+  inject,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  ViewChild, HostListener
+} from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -63,6 +72,7 @@ export class HomePage implements AfterViewInit, OnDestroy{
 
 
   @ViewChildren('videoElement') videoElements!: QueryList<ElementRef<HTMLVideoElement>>
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
 
   private observador: IntersectionObserver | null = null
   private temporizadoresLikes: { [postId: string]: any } = {}
@@ -90,6 +100,7 @@ export class HomePage implements AfterViewInit, OnDestroy{
       this.cargarPostsIniciales(),
       this.cargarActividadesPromocionadas()
     ]);
+
   }
 
   // metodo que detecta si el objeto está siendo visualizado en pantall
@@ -285,5 +296,12 @@ export class HomePage implements AfterViewInit, OnDestroy{
 
   irActividadDetalle(id: string) {
     this.router.navigate([`/detalle-actividad/${id}`]);
+  }
+
+  @HostListener('window:scroll-home-top')
+  subirArriba() {
+    if (this.content) {
+      this.content.scrollToTop(500);
+    }
   }
 }

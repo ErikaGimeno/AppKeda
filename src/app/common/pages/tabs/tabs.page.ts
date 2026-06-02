@@ -91,4 +91,8 @@ export class TabsPage{
       });
     }
   }
+
+  hacerScrollArriba() {
+    window.dispatchEvent(new CustomEvent('scroll-home-top'));
+  }
 }
