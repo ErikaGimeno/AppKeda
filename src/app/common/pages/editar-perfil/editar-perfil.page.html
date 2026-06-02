@@ -1,0 +1,93 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="white">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancelar()">
+        <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="ion-text-center" style="font-weight: 700; font-size: 17px;">
+      Editar Perfil
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button style="visibility: hidden;">
+        <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-white ion-padding">
+  @if (!cargando) {
+  @if (usuario) {
+    <div class="photo-section">
+      <div class="avatar-wrapper" style="cursor: pointer;">
+        <img
+          [src]="usuario.fotoPerfilUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'">
+        <div class="camera-badge">
+          <ion-icon name="camera"></ion-icon>
+        </div>
+      </div>
+      <p class="change-photo-text" (click)="cambiarFoto()" style="cursor: pointer;">Cambiar Foto</p>
+    </div>
+
+    <div class="form-section">
+      <div class="input-group">
+        <label class="custom-label">Nombre</label>
+        <div class="custom-input-container">
+          <input type="text" [(ngModel)]="nombreCompleto" class="custom-input">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="custom-label">Bio</label>
+        <div class="custom-input-container">
+          <textarea [(ngModel)]="usuario.bio" class="custom-input custom-textarea" rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label class="custom-label">Ciudad</label>
+        <div class="custom-input-container">
+          <input type="text" [(ngModel)]="usuario.ciudad" class="custom-input">
+          <ion-icon name="location" class="input-icon" color="primary"></ion-icon>
+        </div>
+      </div>
+
+      <div class="interests-header">
+        <label class="custom-label">Mis Intereses</label>
+        <span class="interests-counter">{{ usuario.intereses?.length || 0 }}/10</span>
+      </div>
+
+      <div class="interests-container">
+        @for (interes of usuario.intereses; track interes) {
+          <ion-chip class="interest-chip outline-chip" (click)="eliminarInteres(interes)">
+            <ion-label>{{ interes }}</ion-label>
+            <ion-icon name="close"></ion-icon>
+          </ion-chip>
+        }
+        <ion-chip class="interest-chip add-chip" (click)="agregarInteres()">
+          <ion-icon name="add"></ion-icon>
+          <ion-label>Añadir</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+  } @else {
+    <div class="ion-text-center ion-padding" style="margin-top: 50px;">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+    </div>
+    }
+  } @else {
+    <div class="ion-text-center ion-padding" style="margin-top: 100px;">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p style="color: gray; margin-top: 10px;">Cargando perfil...</p>
+    </div>
+  }
+</ion-content>
+
+<ion-footer class="ion-no-border custom-footer" style="background: white;">
+  <ion-button expand="block" shape="round" class="save-btn" (click)="guardarCambios()">
+  Guardar Cambios
+  </ion-button>
+</ion-footer>

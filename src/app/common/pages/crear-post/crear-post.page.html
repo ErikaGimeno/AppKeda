@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back" defaultHref="/tabs/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Momento</ion-title>
+    <ion-buttons slot="end">
+<!--      solo dejamos guardar si todos los campos tienen datos-->
+      <ion-button (click)="publicar()" [disabled]="!tituloPost || !actividadSeleccionadaId || cargandoActividades">
+        <ion-icon name="save-outline" style="color:#8A2BE2;"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-light">
+
+<!--  cargamos las dos fotografias o el video tomado con anterioridad-->
+  <div class="foto-preview-container">
+    @if (mediaTemporalUrl && tipoMedia === 'imagen') {
+      <img [src]="mediaTemporalUrl" class="foto-preview">
+
+      @if (mediaTemporalFrontUrl) {
+        <div class="foto-preview-frontal">
+          <img [src]="mediaTemporalFrontUrl">
+        </div>
+      }
+    } @else if (mediaTemporalUrl && tipoMedia === 'video') {
+      <video controls class="foto-preview" autoplay muted loop playsinline>
+        <source [src]="mediaTemporalUrl" type="video/mp4">
+      </video>
+    } @else {
+      <div class="foto-vacia">
+        <ion-spinner name="dots"></ion-spinner>
+      </div>
+    }
+  </div>
+
+<!--  formulario sencillo para los datos del post-->
+  <div class="formulario-post">
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked"><b>¿A qué evento pertenece?</b></ion-label>
+      @if (cargandoActividades) {
+        <ion-spinner name="dots" class="ion-margin-top"></ion-spinner>
+      } @else if (actividadesUsuario.length === 0) {
+        <p class="sin-actividades">No estás participando en actividades activas.</p>
+      } @else {
+        <ion-select [(ngModel)]="actividadSeleccionadaId" placeholder="Selecciona un evento..." interface="action-sheet">
+          @for (actividad of actividadesUsuario; track actividad.id) {
+            <ion-select-option [value]="actividad.id">
+              {{ actividad.titulo }}
+            </ion-select-option>
+          }
+        </ion-select>
+      }
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked"><b>Título del post</b></ion-label>
+      <ion-input [(ngModel)]="tituloPost" placeholder="Ej: ¡Increíble ambiente!" [maxlength]="50"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-label position="stacked"><b>Descripción</b> (Opcional)</ion-label>
+      <ion-textarea [(ngModel)]="descripcionPost" placeholder="Cuenta algo más sobre este momento..." [autoGrow]="true" [rows]="3" [maxlength]="200"></ion-textarea>
+    </ion-item>
+  </div>
+</ion-content>

@@ -1,0 +1,136 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar style="--background: #ffffff;">
+
+    <ion-buttons slot="start">
+      <ion-button fill="clear" routerLink="/editar-perfil">
+        <ion-icon style="color: #8A2BE2" name="create-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="logout()">
+        <ion-icon style="color: #8A2BE2" name="log-out-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (perfilUsuario()) {
+    <div class="perfil-container ion-text-center">
+
+      <div class="ion-display-flex ion-justify-content-center ion-align-items-center">
+        <ion-avatar class="avatar-grande">
+          <img [src]="perfilUsuario()?.fotoPerfilUrl || imagenAnfitrion()" />
+        </ion-avatar>
+      </div>
+      <div>
+        <h2>{{ perfilUsuario()?.nombre }} {{ perfilUsuario()?.apellidos}}</h2>
+        <p class="email-texto">{{ perfilUsuario()?.ciudad }}</p>
+        <p>{{perfilUsuario()?.bio}}</p>
+      </div>
+
+      <div>
+        @for (interes of listaIntereses; track $index) {
+          <ion-badge class="interes-badge">{{interes}}</ion-badge>
+        }
+      </div>
+
+      <div class="actividades-usuario-container">
+        <ion-segment class="segment-container" [value]="segmentoActual" (ionChange)="cambiarPestana($event)">
+          <ion-segment-button value="miseventos">
+            <ion-label>Mis Eventos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="participando">
+            <ion-label>Participando</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="media">
+            <ion-label>Media</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      @if (segmentoActual === 'miseventos') {
+        @if (actividadesHost().length > 0) {
+          <ion-grid>
+            <ion-row>
+              @for (actividad of actividadesHost(); track actividad.id) {
+                <ion-col size="6">
+                  <div class="event-card" (click)="verDetalle(actividad.id)">
+                    <div class="image-container">
+                      @if (actividad.fechaFin < fechaActual || actividad.fechaFin.isEqual(fechaActual)) {
+                        <span class="host-badge">HOSTED</span>
+                      } @else {
+                        <span class="host-badge2">HOSTING</span>
+                      }
+                      <img [src]="actividad.imageUrl || 'assets/noimgactividad.png'" />
+                    </div>
+                    <div class="card-info">
+                      <h2>{{ actividad.titulo }}</h2>
+                    </div>
+                  </div>
+                </ion-col>
+              }
+            </ion-row>
+          </ion-grid>
+        } @else {
+          <p class="ion-padding">No has creado eventos aún.</p>
+        }
+      }
+
+      @else if (segmentoActual === 'participando') {
+        @if (actividadesParticipantes().length > 0) {
+          <ion-grid>
+            <ion-row>
+              @for (actividad of actividadesParticipantes(); track actividad.id) {
+                <ion-col size="6">
+                  <div class="event-card" (click)="verDetalle(actividad.id)">
+                    <div class="image-container">
+                      <span class="host-badge">JOINED</span>
+                      <img [src]="actividad.imageUrl || 'assets/noimgactividad.png'" />
+                    </div>
+                    <div class="card-info"><h2>{{ actividad.titulo }}</h2></div>
+                  </div>
+                </ion-col>
+              }
+            </ion-row>
+          </ion-grid>
+        } @else {
+          <p class="ion-padding">No estás participando en ningún evento.</p>
+        }
+      }
+
+      @else if (segmentoActual === 'media') {
+        @if (media().length > 0) {
+          <ion-grid>
+            <ion-row>
+              @for (post of media(); track post.id) {
+                <ion-col size="4" class="post-col">
+                  <div class="post-square" (click)="irADetalle(post.id)">
+                    @if (post.tipoMedia === 'video') {
+                      <div class="video-overlay"><ion-icon name="videocam"></ion-icon></div>
+                    }
+                    <img [src]="post.imageUrl" alt="post" />
+                  </div>
+                </ion-col>
+              }
+            </ion-row>
+          </ion-grid>
+        } @else {
+          <div class="empty-state">
+            <ion-icon name="camera-outline" size="large"></ion-icon>
+            <p>Aún no has publicado ningún post</p>
+          </div>
+        }
+      }
+
+    </div>
+
+  } @else {
+    <div class="ion-text-center ion-padding" style="margin-top: 100px;">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando perfil...</p>
+    </div>
+  }
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="mapa">
+      <ion-icon name="compass"></ion-icon>
+    </ion-tab-button>
+
+    <div class="tab-placeholder"></div>
+
+    <ion-tab-button tab="chats">
+      <ion-icon name="chatbox-ellipses"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="perfil">
+      <ion-icon name="person"></ion-icon>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+  <input type="file" accept="video/mp4,video/x-m4v,video/*" capture="environment"
+         #videoInput style="display: none;" (change)="capturarVideoRapido($event)">
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button class="fab-main-btn">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button routerLink="/crear-actividad" color="tertiary">
+        <ion-icon name="bicycle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="videoInput.click()" color="tertiary">
+        <ion-icon name="videocam"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+    <ion-fab-list side="end">
+      <ion-fab-button (click)="capturarPostRapido()" color="secondary">
+        <ion-icon name="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+
+  </ion-fab>
+</ion-tabs>

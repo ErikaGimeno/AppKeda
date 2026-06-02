@@ -1,0 +1,233 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-button style="--background: white;
+--background-activated: white; --background-focused: white; --background-hover:white;" routerLink="/tabs/home">
+      <ion-icon style="color: #8A2BE2"  name="arrow-back-sharp"></ion-icon>
+    </ion-button>
+    <ion-title>Crear Actividad</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!--Empezamos a desarrollar el formulario de publicación de actividades. Aqui podemos configurar todos-->
+<!--los campos necesarios. -->
+<ion-content >
+  <form [formGroup]="actividadForm" (ngSubmit)="guardarActividad()">
+
+<!--    selector de categoria-->
+  <h1 class="ion-padding">Que vibra llevas?</h1>
+    <swiper-container
+      slides-per-view="3.5"
+      [spaceBetween]="5"
+      [centeredSlides]="false"
+      [freeMode]="true">
+      @for (categoria of categorias; track categoria.value){
+        <swiper-slide>
+          <div class="categoria-wrapper" (click)="seleccionarCategoria(categoria.value)">
+            <div class="circulo-categoria" [class.selected]="actividadForm.get('categoria')?.value === categoria.value">
+              <div class="categoria-slide">
+                <ion-icon [name]="obtenerIcono(categoria.value)" size="large"></ion-icon>
+              </div>
+            </div>
+            <span class="categoria-etiqueta">{{ categoria.label }}</span>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div class="ion-padding">
+    <div  style="width: 100%; height: 5px; background: #6029a8;"></div>
+
+    <div style="margin: 15px;">
+      <h3>Detalles de la Actividad</h3>
+    </div>
+<!--nombre actividad-->
+    <div class="custom-pill">
+      <ion-input formControlName="titulo" placeholder="Nombra tu Actividad"></ion-input>
+    </div>
+
+<!--      fecha inicio -->
+    <div class="datetime-grid">
+      <div class="custom-pill">
+        <span class="pill-label">Fecha Inicio</span>
+        <div class="pill-content">
+          <ion-icon size="large" style="color: #8A2BE2;" name="calendar" class="pill-icon"></ion-icon>
+          <ion-datetime-button datetime="date-start"></ion-datetime-button>
+        </div>
+      </div>
+      <div class="custom-pill">
+        <span class="pill-label">Hora Inicio</span>
+        <div class="pill-content">
+          <ion-icon size="large" style="color: #8A2BE2;" name="time" class="pill-icon"></ion-icon>
+          <ion-datetime-button datetime="time-start"></ion-datetime-button>
+        </div>
+      </div>
+    </div>
+
+<!--      abrimos dos modales para seleccionar fecha y hora y lo guardamos en el formulario-->
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="date-start" presentation="date" formControlName="fechaInicio"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="time-start" presentation="time" formControlName="fechaInicio"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+<!--      fecha fin-->
+    <div class="datetime-grid">
+      <div class="custom-pill">
+        <span class="pill-label">Fecha Fin</span>
+        <div class="pill-content">
+          <ion-icon size="large" style="color: #8A2BE2;" name="calendar" class="pill-icon"></ion-icon>
+          <ion-datetime-button datetime="date-end"></ion-datetime-button>
+        </div>
+      </div>
+      <div class="custom-pill">
+        <span class="pill-label">Hora Fin</span>
+        <div class="pill-content">
+          <ion-icon size="large" style="color: #8A2BE2;" name="time" class="pill-icon"></ion-icon>
+          <ion-datetime-button datetime="time-end"></ion-datetime-button>
+        </div>
+      </div>
+    </div>
+
+      <!--      abrimos dos modales para seleccionar fecha y hora y lo guardamos en el formulario-->
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="date-end" presentation="date" formControlName="fechaFin"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="time-end" presentation="time" formControlName="fechaFin"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+<!--      descripcion actividad-->
+    <div class="descripcion-actividad">
+      <div style="margin: 15px;">
+        <h4>Descripcion</h4>
+      </div>
+      <ion-textarea placeholder="¿Que vamos a hacer? Detalla tu plan para especificar sitio de quedada, que llevar..." formControlName="descripcion" [autoGrow]="true"></ion-textarea>
+    </div>
+
+<!--      carga un mapa de google maps api y la api de places, que autocompleta una direccion-->
+    <div class="buscador-container">
+      <div style="margin: 15px;">
+        <h4>Ubicacion</h4>
+      </div>
+      <div class="custom-pill buscador-container">
+        <div class="pill-content">
+          <ion-icon name="search" class="pill-icon"></ion-icon>
+          <input
+            #inputDireccion
+            type="text"
+            placeholder="Escribe una calle o lugar..."
+            class="input-autocomplete">
+        </div>
+      </div>
+
+      <google-map
+        height="200px"
+        width="100%"
+
+        [center]="center"
+        [zoom]="zoom"
+        class="mapa-redondeado"
+        [options]="{ disableDefaultUI: true }">
+        @if (markerPosition) {
+          <map-marker [position]="markerPosition"></map-marker>
+        }
+      </google-map>
+
+    </div>
+
+<!--      para usuarios estandar limitamos a 10 participantes-->
+    <div class="row-flex participante-container">
+      <div class="text-container">
+        <h3 class="main-label">Límite de Participantes</h3>
+        <p class="sub-label">Máximo 10 personas</p>
+      </div>
+
+      <div class="counter-pill">
+        <ion-button
+          class="btn-minus"
+          fill="clear"
+          [disabled]="cantidadParticipantes <= 1"
+          (click)="restarParticipantes()">
+          <ion-icon slot="icon-only" name="remove-sharp"></ion-icon>
+        </ion-button>
+
+        <span class="counter-number">{{ cantidadParticipantes }}</span>
+
+        <ion-button
+          class="btn-plus"
+          fill="clear"
+          [disabled]="cantidadParticipantes >= 10"
+          (click)="sumarParticipantes()">
+          <ion-icon slot="icon-only"  name="add-sharp"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+<!--      zona de captura de fotografias, pueden seleccionar de la galeria una imagen para la portada de la actividad-->
+      <div class="capture-zone" (click)="capturarFoto()">
+        @if (fotoActividad) {
+          <div class="capture-zone-preview">
+            <img [src]="fotoActividad" class="preview-img">
+          </div>
+        } @else {
+          <div class="capture-zone-no-preview">
+            <ion-icon style="color: #8A2BE2; padding: 20px; background: #decdf5; border-radius: 50px" name="cloud-upload" size="large"></ion-icon>
+            <p>Sube una portada para tu Kedada</p>
+          </div>
+        }
+      </div>
+
+<!--      selector si actividad es de pago o no-->
+      <div class="access-type-container">
+        <div class="segment-header">
+          <h4>Tipo de Acitividad </h4>
+          <ion-icon name="information-circle-outline" class="info-icon"></ion-icon>
+        </div>
+
+        <ion-segment value="gratis" (ionChange)="cambiarPestana($event)">
+          <ion-segment-button value="gratis">
+            <ion-label>Gratis</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="pago">
+            <ion-label>Pago</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      @if (default){
+      } @else {
+        <div class="row-flex participante-container">
+          <div class="text-container">
+            <h3 class="main-label">Límite de Precio</h3>
+            <p class="sub-label">Máximo 100 euros</p>
+          </div>
+          <div class="precio-pill">
+              <ion-input formControlName="precio" placeholder="Pon un Precio"></ion-input>
+          </div>
+        </div>
+      }
+
+<!--      si el formulario está sin completar, no deja crear actividad-->
+    <div style="margin-bottom: 40px;"> <ion-button
+      expand="block"
+      shape="round"
+      type="submit"
+      [disabled]="actividadForm.invalid"
+      class="ion-margin-top" style="background: #8A2BE2">
+      Publicar Plan
+    </ion-button>
+    </div>
+    </div>
+  </form>
+
+</ion-content>

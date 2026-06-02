@@ -1,0 +1,136 @@
+ion-header {
+  margin-top: 30px;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --border-style: none;
+  box-shadow: none;
+}
+
+.skip-btn {
+  --color: #666;
+  margin-right: 20px;
+  font-size: 14px;
+  text-transform: none;
+}
+
+ion-content {
+  --background: #fff; // O tu color de fondo
+}
+
+
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90vh;
+  padding: 20px;
+}
+
+.img-container, .img-container2 {
+  max-width: 300px;
+  width: 100%;
+  height: 300px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+
+  ion-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
+.img-container2 {
+  max-width: 340px;
+  height: 290px;
+}
+
+.intro-content {
+  display: grid;
+  grid-template-areas: "stack";
+  place-items: center;
+  width: 100%;
+  min-height: 450px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.intro-step {
+  grid-area: stack;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-container {
+  margin-bottom: 40px;
+
+  h1 {
+    font-weight: 800;
+    color: #7209b7;
+    font-size: 2rem;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.5;
+  }
+}
+
+.button-container {
+  width: 100%;
+}
+
+.next-btn {
+  --background: #8A2BE2;
+  --background-activated: #7a26c9;
+  --background-focused: #8A2BE2;
+  --color: #ffffff;
+  box-shadow: none;
+  --border-radius: 12px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.step-dots{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.step-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+
+  span {
+    width: 8px;
+    height: 8px;
+    background-color: #decdf5;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+
+    &.active {
+      width: 25px;
+      border-radius: 10px;
+      background-color: #8A2BE2;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "kedaApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

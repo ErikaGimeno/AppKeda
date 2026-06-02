@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Keda</string>
+    <string name="title_activity_main">Keda</string>
+    <string name="package_name">erikaGimeno.KedaApp</string>
+    <string name="custom_url_scheme">erikaGimeno.KedaApp</string>
+</resources>

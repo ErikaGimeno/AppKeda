@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true">
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-title>
+        Keda
+      </ion-title>
+      <ion-label slot="end" routerLink="/home" class="skip-btn">Skip</ion-label>
+    </ion-toolbar>
+  </ion-header>
+
+    <div class="main-wrapper">
+
+      <div class="intro-content">
+
+        @switch (stepIntro){
+          @case (1){
+            <div class="intro-step" @fadeSlide>
+              <div class="img-container">
+                <ion-img src="assets/step1.jpg"></ion-img>
+              </div>
+              <div class="text-container ion-text-center">
+                <h1 >¡Bienvenido a KEDA!</h1>
+                <p>Tu ciudad está llena de planes esperando por ti. Encuentra desde un café tranquilo hasta un partido de fútbol.</p>
+              </div>
+            </div>
+          }
+          @case (2){
+            <div class="intro-step" @fadeSlide>
+              <div class="img-container2">
+                <ion-img src="assets/step2.png"></ion-img>
+              </div>
+              <div class="text-container ion-text-center">
+                <h1 >Captura el Momento</h1>
+                <p>Comparte fotos o videos capturados en el momento mientras disfrutas
+                de la actividad. Sin filtros, solo realidad</p>
+              </div>
+          </div>
+          }
+          @case (3){
+            <div class="intro-step" @fadeSlide>
+              <div class="img-container2">
+                <ion-img src="assets/mascota.png"></ion-img>
+              </div>
+              <div class="text-container ion-text-center">
+                <h1 >Kedemos Pronto</h1>
+                <p>Empieza a disfrutar ya el momento</p>
+              </div>
+            </div>
+          }
+        }
+
+        <div class="step-dots">
+          <span [class.active] ="stepIntro == 1"></span>
+          <span [class.active] ="stepIntro == 2"></span>
+          <span [class.active] ="stepIntro == 3"></span>
+        </div>
+
+        <div class="button-container">
+          <ion-button expand="block" class="next-btn" (click)="nextStep()">
+            {{textoNextStep}}
+          </ion-button>
+        </div>
+
+      </div>
+    </div>
+</ion-content>

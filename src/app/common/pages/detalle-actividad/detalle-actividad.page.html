@@ -1,0 +1,136 @@
+<ion-content [fullscreen]="true" class="bg-light">
+
+  @if (cargando) {
+    <div class="ion-text-center ion-padding" style="margin-top: 40vh;">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+    </div>
+  } @else if (actividad) {
+    <div class="hero-section">
+      <img [src]="actividad.imageUrl || 'https://ionicframework.com/docs/img/demos/thumbnail.svg'" class="hero-image" />
+
+      <ion-buttons slot="start" class="btn-back">
+        <ion-back-button text="" icon="arrow-back" style="color: #8A2BE2" defaultHref="/mis-eventos"></ion-back-button>
+      </ion-buttons>
+
+      <div class="right-buttons-container">
+        <button class="nav-btn" (click)="compartir()">
+          <ion-icon name="share-social-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <h1 class="title">{{ actividad.titulo }}</h1>
+      <div class="badges-row">
+        <span class="custom-badge">{{ actividad.categoria | uppercase }}</span>
+        @if (actividad.precio > 0) {
+          <span class="custom-badge">{{ actividad.precio }}€</span>
+        } @else {
+          <span class="custom-badge">GRATIS</span>
+        }
+      </div>
+
+      <div class="info-list">
+        <div class="info-item">
+          <div class="icon-box"><ion-icon name="calendar"></ion-icon></div>
+          <div class="info-text">
+            <h3>{{ actividad.fechaInicio.toDate() | date:'EEEE, HH:mm' }} - {{ actividad.fechaFin.toDate() | date:'EEEE, HH:mm' }}</h3>
+            <p>{{ actividad.fechaInicio.toDate() | date:'MMMM d, yyyy' }} - {{ actividad.fechaFin.toDate() | date:'MMMM d, yyyy' }}</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon-box"><ion-icon name="locate"></ion-icon></div>
+          <div class="info-text">
+            <h3>{{ actividad.ciudad || 'Ubicación seleccionada' }}</h3>
+            <p>{{actividad.direccion}}</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <img [src]="host?.fotoPerfilUrl || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp'" class="host-avatar" />
+          <div class="info-text">
+            <p class="host-label">Anfitrión</p>
+            <h3 class="host-name">{{ host?.nombre }} {{ host?.apellidos }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Sobre el Plan</h2>
+        <p class="description-text">{{ actividad.descripcion }}</p>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Ubicacion</h2>
+
+        <div class="mapa-wrapper">
+          <google-map
+            height="200px"
+            width="100%"
+            [center]="mapCenter"
+            [zoom]="15"
+            [options]="{
+        disableDefaultUI: true,
+        gestureHandling: 'none',
+      }">
+            <map-marker [options]="markerOptions" [position]="mapCenter"></map-marker>
+          </google-map>
+
+          @if (actividad.direccion) {
+            <div class="location-footer">
+              <ion-icon name="location-outline"></ion-icon>
+              <span>{{ actividad.direccion }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="section participants-section">
+        <div class="section-header">
+          <h2 class="section-title" style="margin: 0;">Quién Viene</h2>
+          <span class="total-count">{{ actividad.participantesUids?.length }} / {{ actividad.cantidadParticipantes }} total</span>
+        </div>
+
+        <div class="avatar-stack">
+          @for (foto of participantesFotos; track foto) {
+            <img [src]="foto || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp'" alt="Participante" />
+          }
+          @if (actividad.participantesUids?.length > 4) {
+            <div class="more-count">+{{ actividad.participantesUids.length - 4 }}</div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</ion-content>
+
+@if (actividad && !cargando) {
+  <ion-footer class="ion-no-border custom-footer">
+    <div class="footer-container">
+
+      @if (!estaFinalizada) {
+        <button class="chat-btn" (click)="abrirChat()" [disabled]="!yaUnido" [style.opacity]="yaUnido ? 1 : 0.5">
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        </button>
+      }
+
+      @if (estaFinalizada) {
+        <button class="join-btn btn-finalizada" disabled style="width: 100%; background: #ccc; box-shadow: none;">
+          Kedada Finalizada
+        </button>
+      } @else {
+        @if (yaUnido) {
+          <button class="join-btn btn-leave" (click)="unirse()">
+            Abandonar Kedada
+          </button>
+        } @else {
+          <button class="join-btn" (click)="unirse()" [disabled]="actividad.participantesUids?.length >= actividad.cantidadParticipantes">
+            Unirse a Kedada
+          </button>
+        }
+      }
+
+    </div>
+  </ion-footer>
+}

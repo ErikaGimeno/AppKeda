@@ -1,0 +1,325 @@
+/* Variables de color basadas en tu diseño */
+$primary-purple: #8A2BE2; /* Usa el color que ya tienes (ej. var(--ion-color-primary)) */
+$light-purple: #f3ebff;
+$text-dark: #1a1a1a;
+$text-gray: #8e8e93;
+
+
+/* Estilo alternativo para cuando ya estás apuntado */
+.join-btn.btn-leave {
+  background: #f4f5f8;
+  color: $text-dark;
+  box-shadow: none;
+  border: 2px solid #e0e0e0;
+}
+
+
+.bg-light {
+  --background: #ffffff;
+}
+
+/* ==================================
+   CABECERA E IMAGEN
+================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 38vh; /* Ocupa el 38% de la pantalla */
+  min-height: 280px;
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
+//estilos de la cabecera y de la imagen de la actividad
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 38vh;
+  min-height: 280px;
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 22px;
+  z-index: 20;
+  cursor: pointer;
+
+
+  &::after {
+    border-radius: 50%;
+  }
+}
+
+
+.btn-back {
+  position: absolute;
+  top: calc(10px + env(safe-area-inset-top));
+  left: 20px;
+}
+
+
+.right-buttons-container {
+  position: absolute;
+  top: calc(10px + env(safe-area-inset-top));
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+}
+
+//estilos de la card de la actividad con todos los campos
+.content-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 30px 30px 0 0;
+  margin-top: -30px;
+  padding: 30px 20px 40px 20px;
+  z-index: 10;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: $text-dark;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.badges-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+
+  .custom-badge {
+    background: $light-purple;
+    color: $primary-purple;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+}
+
+//estilos de los detalles
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: $light-purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      color: $primary-purple;
+      font-size: 22px;
+    }
+  }
+
+  .host-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .info-text {
+    h3 {
+      margin: 0 0 4px 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: $text-dark;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: $text-gray;
+      font-weight: 500;
+    }
+
+    .host-label {
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+    .host-name {
+      font-size: 16px;
+    }
+  }
+}
+
+.section {
+  margin-bottom: 30px;
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: $text-dark;
+    margin: 0 0 15px 0;
+  }
+}
+
+.description-text {
+  font-size: 15px;
+  color: #4a4a4a;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+
+.participants-section {
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    .total-count {
+      color: $primary-purple;
+      font-weight: 700;
+      font-size: 14px;
+    }
+  }
+}
+
+.avatar-stack {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+    margin-left: -15px;
+
+    &:first-child { margin-left: 0; }
+  }
+
+  .more-count {
+    width: 45px;
+    height: 45px;
+    background: #f4f5f8;
+    color: $text-gray;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: -15px;
+    z-index: 0;
+  }
+}
+
+//estilos de footer
+.custom-footer {
+  background: white;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 -4px 15px rgba(0,0,0,0.03);
+}
+
+.footer-container {
+  display: flex;
+  gap: 15px;
+
+  .chat-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 16px;
+    background: $light-purple;
+    color: $primary-purple;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+
+  .join-btn {
+    flex-grow: 1;
+    height: 55px;
+    border-radius: 16px;
+    background: $primary-purple;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+  }
+}
+
+//estilos del mapa
+.mapa-wrapper {
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f0f0f0;
+}
+
+google-map {
+  display: block;
+  border-radius: 24px;
+}
+
+.location-footer {
+  padding: 12px 16px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid #f5f5f5;
+
+  ion-icon {
+    color: $primary-purple;
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 13px;
+    color: $text-gray;
+    font-weight: 500;
+  }
+}

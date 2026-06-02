@@ -1,0 +1,100 @@
+<ion-content [fullscreen]="true">
+  <div class="registro-container">
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+            defaultHref="/login"
+            text=""
+            class="keda-back-btn">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <div>
+      <h1>Crea tu cuenta</h1>
+      <p>Introduce tus datos para unirte a Keda</p>
+    </div>
+
+    <div class="formulario-registro">
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="newUsuario.nombre" type="text" placeholder="Jane">
+          <ion-icon name="person" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked">Apellidos</ion-label>
+        <ion-input [(ngModel)]="newUsuario.apellidos" type="text" placeholder="Doe Brown">
+          <ion-icon name="person" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input [(ngModel)]="newUsuario.email" type="email" placeholder="example@example.com">
+          <ion-icon name="mail" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked" class="ion-margin-bottom">Fecha Nacimiento</ion-label>
+        <div class="keda-input-pill">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <ion-datetime-button datetime="birthdate"></ion-datetime-button>
+        </div>
+      </ion-item>
+
+
+      <ion-item lines="none" class="ion-margin-bottom">
+        <ion-label position="stacked">Ciudad</ion-label>
+        <ion-input [(ngModel)]="newUsuario.ciudad" type="text" placeholder="Valencia">
+          <ion-icon name="locate" slot="start"></ion-icon>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-bottom keda-input-item">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input
+          type="password"
+          placeholder="• • • • • • • •"
+          [(ngModel)]="password"
+          class="keda-custom-input">
+          <ion-icon name="lock-closed" slot="start"></ion-icon>
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+        </ion-input>
+      </ion-item>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="birthdate"
+            presentation="date"
+            [(ngModel)]="newUsuario.fechaNacimiento">
+          </ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+
+    <div>
+      <ion-item lines="none" class="keda-terms-item">
+        <ion-checkbox [checked]="aceptaTerminos" (ionChange)="toggleTerminos($event)" label-placement="end" justify="start">
+          <ion-text class="terms-text">
+            Acepto los <a href="/terms">términos y condiciones</a> y la
+            <a href="/privacy">política de privacidad</a>.
+          </ion-text>
+        </ion-checkbox>
+      </ion-item>
+    </div>
+
+    <div>
+      <ion-button expand="block" (click)="registrar()" [disabled]="!aceptaTerminos">
+        Registrarse
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

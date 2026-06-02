@@ -1,0 +1,181 @@
+.registro-container{
+  width: 87%;
+  height: auto;
+  margin: 0 auto;
+}
+ion-header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin: 10px 0;
+}
+
+ion-toolbar {
+  margin-top: 10px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --background: transparent;
+  margin-bottom: 15px;
+  margin-right: 45px;
+}
+
+ion-back-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #8A2BE2;
+  box-shadow: #decdf5 1px 2px 2px 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --icon-margin-start: 0;
+  --icon-margin-end: 0;
+}
+
+ion-progress-bar.custom-progress {
+  height: 8px;
+  border-radius: 10px;
+  --progress-background: #8A2BE2;
+  --buffer-background: #E0E0E0;
+}
+
+//estilos de los cuadros de texto del registro
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  background: white;
+}
+
+
+ion-input {
+  background: #f2edfa;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 30px;
+  border: 1px solid #E0E0E0;
+  min-height: 55px;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+}
+
+
+ion-input ion-icon[slot="start"] {
+  margin-left: 18px;
+  margin-right: 15px;
+  color: #8A2BE2;
+  font-size: 20px;
+}
+
+
+ion-input.ion-focused {
+  border-color: #8A2BE2;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.15);
+}
+
+//etilos del input datetime
+.keda-input-pill {
+  background: #f2edfa;
+  border-radius: 30px;
+  border: 1px solid #E0E0E0;
+  min-height: 55px;
+  margin-top: 8px;
+  transition: all 0.3s ease;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.keda-input-pill ion-icon {
+  margin-right: 15px;
+  color: #8A2BE2;
+  font-size: 20px;
+}
+
+ion-datetime-button {
+  --background: transparent;
+  --color: #333;
+  width: 100%;
+  justify-content: flex-start;
+
+  &::part(native) {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.keda-input-pill:focus-within {
+  border-color: #8A2BE2;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.15);
+}
+
+//estilo del check de los terminos y condiciones
+
+.keda-terms-item {
+  --background: transparent;
+  margin-top: 30px;
+  --padding-start: 5px;
+}
+
+
+ion-checkbox {
+  --checkbox-background-checked: #8A2BE2;
+  --border-color-checked: #8A2BE2;
+  --border-radius: 6px;
+  --border-color: #E0E0E0;
+  font-size: 14px;
+}
+
+.terms-text {
+  color: #666;
+  white-space: wrap;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.terms-text a {
+  color: #8A2BE2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.terms-text a:hover {
+  text-decoration: underline;
+}
+
+ion-checkbox::part(container) {
+  transition: all 0.2s ease;
+}
+
+ion-checkbox.checkbox-checked::part(container) {
+  box-shadow: 0 0 8px rgba(138, 43, 226, 0.4);
+}
+
+//estilos del boton de siguiente
+
+ion-button {
+  margin-top: 35px;
+  --background-activated: #8A2BE2;
+  --background: transparent;
+  --border-radius: 25px;
+  --color: transparent;
+  background: #8A2BE2;
+  width: 100%;
+  height: auto;
+  border-radius: 25px;
+  color: white;
+}
+
+ion-button:hover{
+  --background: transparent;
+  --color: transparent;
+}
+
+

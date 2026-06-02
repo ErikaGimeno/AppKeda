@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="light">
+
+    <ion-buttons slot="start">
+      <ion-back-button text="" style="color: #8A2BE2" defaultHref="/tabs/chats" icon="arrow-back-sharp"></ion-back-button>
+
+      @if (actividadSeleccionada) {
+        <div class="icono-wrapper">
+          <ion-icon class="icono-grupo" [name]="obtenerIcono(actividadSeleccionada.categoria)"></ion-icon>
+        </div>
+      }
+    </ion-buttons>
+
+    @if (actividadSeleccionada){
+      <ion-title>{{ actividadSeleccionada?.titulo || 'Cerrando chat...' }}</ion-title>
+    } @else {
+      <ion-title>Chat del Grupo</ion-title>
+    }
+
+    <ion-buttons slot="end">
+      @if (actividadSeleccionada){
+        <ion-button (click)="openModal()">
+          <ion-icon style="color: var(--color-primario);" size="large" name="information-circle"></ion-icon>
+        </ion-button>
+      }
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="chat-container">
+    @for (msg of mensajes(); track msg.id) {
+      <div class="message-wrapper"
+           [ngClass]="msg.senderId === usuarioActual?.uid ? 'me' : 'other'">
+
+        <div class="message-bubble">
+          @if (msg.senderId !== usuarioActual?.uid) {
+            <span class="sender-name">{{ msg.senderName }}</span>
+          }
+
+          <p class="message-text">{{ msg.texto }}</p>
+
+          <div class="message-footer">
+            <span class="timestamp">{{ msg.timestamp?.toDate() | date:'HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <ion-modal  #modalParticipantes [initialBreakpoint]="1.0" [breakpoints]="[0, 1.0]">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Participantes ({{ listaParticipantes().length }})</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-list lines="none">
+          @for (user of listaParticipantes(); track user.uid) {
+            <ion-item>
+              <ion-avatar slot="start">
+                <img [src]="user.fotoPerfilUrl || 'assets/appicon.png'" />
+              </ion-avatar>
+              <ion-label>
+                <h2>{{ user.nombre }} {{ user.apellidos }}</h2>
+                <p>Participante de KEDA</p>
+              </ion-label>
+            </ion-item>
+          } @empty {
+            <div class="ion-text-center ion-padding">
+              <p>Cargando participantes...</p>
+            </div>
+          }
+        </ion-list>
+      </ion-content>
+      <ion-footer class="ion-no-border">
+        <ion-toolbar class="ion-padding">
+          @if (usuarioActual?.uid === actividadSeleccionada?.creadorUid) {
+            <ion-button expand="block" color="danger" (click)="confirmarBorrado()">
+              <ion-icon name="trash-outline" slot="start"></ion-icon>
+              Borrar actividad
+            </ion-button>
+          } @else {
+            <ion-button expand="block" color="danger" fill="outline" (click)="confirmarSalida()">
+              <ion-icon name="exit-outline" slot="start"></ion-icon>
+              Abandonar actividad
+            </ion-button>
+          }
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="enviar-container">
+    <ion-input [(ngModel)]="nuevoTexto" placeholder="Mensaje..." class="chat-input"></ion-input>
+    <ion-button class="button-send" slot="end" fill="clear" (click)="mandarMensaje()">
+      <ion-icon name="send" color="light"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

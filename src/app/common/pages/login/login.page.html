@@ -1,0 +1,104 @@
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <div class="logo-container">
+      <div class="logo-container">
+        <ion-img src="assets/appicon.png"></ion-img>
+        <h1>Keda</h1>
+        <ion-text>
+          <p>Bienvenido de nuevo, te hemos echado de menos!</p>
+        </ion-text>
+      </div>
+      <div></div>
+    </div>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-icon name="mail" slot="start"></ion-icon>
+      <ion-input
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="ion-margin-bottom">
+      <ion-icon name="lock-closed" slot="start"></ion-icon>
+      <ion-input
+        type="password"
+        placeholder="Contraseña"
+        [(ngModel)]="password">
+        <ion-input-password-toggle class="pass-toggle" slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+
+    <ion-label class="ion-text-center"><p>Has olvidado la contraseña?
+      <span routerLink="/login" style="color: #8A2BE2" (click)="modalForgot.present()">Recupérala</span></p></ion-label>
+
+    <ion-button expand="block" (click)="onLogin()" class="ion-margin-top login-btn">
+      Entrar
+    </ion-button>
+
+
+  </div>
+  <div style="text-align: center; margin-bottom: calc(10px + env(safe-area-inset-bottom));">
+    <p>Aún no tienes una cuenta? <span style="color: #8A2BE2; cursor: pointer;" routerLink="/registro">Registrate</span></p>
+  </div>
+
+<!--  modal para poder recuperar la contraseña-->
+  <ion-modal trigger="open-forgot-modal" #modalForgot>
+    <ng-template>
+      <ion-content class="ion-padding keda-forgot-content">
+        <div class="modal-wrapper">
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="modalForgot.dismiss()">
+                <ion-icon slot="icon-only" name="arrow-back-sharp" color="dark"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+
+          <div class="icon-header">
+            <div class="main-icon-circle">
+              <ion-icon name="refresh-outline" class="big-icon"></ion-icon>
+            </div>
+            <div class="small-badge-icon">
+              <ion-icon name="key-outline"></ion-icon>
+            </div>
+          </div>
+
+          <h1>¿Has olvidado la contraseña?</h1>
+          <p class="subtitle">
+            Escribe tu correo electrónico para recibir un link de restablecimiento.
+            ¡No te preocupes! A cualquiera le puede pasar
+          </p>
+
+          <div class="input-group ion-text-left">
+            <ion-label class="input-label" [class.label-error]="errorRecuperacion !== ''">Email</ion-label>
+
+            <ion-item lines="none" class="custom-input-item" [class.item-error]="errorRecuperacion !== ''">
+              <ion-icon name="mail-outline" slot="start" class="input-icon" [class.icon-error]="errorRecuperacion !== ''"></ion-icon>
+              <ion-input
+                type="email"
+                placeholder="hello@keda.com"
+                [(ngModel)]="emailRecuperacion"
+                (ionInput)="errorRecuperacion = ''"> </ion-input>
+            </ion-item>
+
+            @if (errorRecuperacion !== '') {
+              <p class="error-texto-rojo">{{ errorRecuperacion }}</p>
+            }
+          </div>
+
+          <ion-button expand="block" class="btn-keda-purple" (click)="enviarEnlaceRecuperacion()">
+            Enviar Link de Recuperación
+          </ion-button>
+
+          <p class="footer-text">
+            Ya te acuerdas? <span class="highlight" (click)="modalForgot.dismiss()">Log in</span>
+          </p>
+
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Mis Mensajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div lines="none" class="chat-list">
+
+<!--    listamos todos los chats cuya actividad esté activa-->
+    @for (chat of chats$ | async; track chat.actividadId) {
+      <div class="chat-card ion-activatable ripple-parent" (click)="abrirChat(chat.actividadId)">
+
+       <ion-avatar class="ion-margin">
+         <ion-img [src]="chat?.actividadImg|| 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp'"></ion-img>
+       </ion-avatar>
+
+        <div class="chat-info">
+          <div class="chat-header">
+            <h2 class="chat-title">{{ chat?.titulo }}</h2>
+            <span class="chat-time">{{ chat?.fechaUltimoMensaje?.toDate() | date:'shortTime' }}</span>
+          </div>
+          <p class="last-message">{{ chat?.ultimoMensaje }}</p>
+        </div>
+
+        <div class="chat-meta">
+          <div class="participants-badge">
+            <ion-icon name="people"></ion-icon>
+            <span>{{ chat?.participantesUids.length }}</span>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+
+        <ion-ripple-effect></ion-ripple-effect>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+        <p>No tienes chats activos</p>
+        <small>Apúntate a un plan para empezar a hablar</small>
+      </div>
+    }
+
+  </div>
+</ion-content>

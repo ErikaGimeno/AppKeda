@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: #ffffff;">
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/perfil" icon="arrow-back-sharp" style="color: #8A2BE2;"></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      @if (post && post.usuarioUid === currentUserUid) {
+        <ion-button color="danger" fill="clear" (click)="confirmarEliminacion()">
+          <ion-icon name="trash" slot="icon-only" size="large"></ion-icon>
+        </ion-button>
+      }
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-white ion-padding">
+  @if (cargando) {
+    <div class="ion-text-center ion-padding" style="margin-top: 100px;">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+    </div>
+  } @else if (post) {
+
+    <div class="post-header-custom">
+      <div class="user-info-wrapper">
+        <img [src]="post.usuarioAvatar || 'assets/appicon.png'" class="avatar-round">
+        <div class="text-data">
+          <h3>{{ post.usuarioNombre }}</h3>
+          <p>{{ post.tiempo?.toDate() | date:'shortTime' }} • {{ post.ubicacion || 'Ubicación desconocida' }}</p>
+        </div>
+      </div>
+
+      <div class="activity-badge">
+        <ion-icon name="walk-outline"></ion-icon>
+        <span>{{ post.actividadNombre || 'Keda' }}</span>
+      </div>
+    </div>
+
+    <div class="bereal-container">
+
+      @if (post.tipoMedia === 'imagen' || !post.tipoMedia) {
+        <img [src]="post.selfieEnGrande ? post.imageUrlFrontal : post.imageUrl" class="media-background">
+      } @else if (post.tipoMedia === 'video') {
+        <video class="media-background" loop muted playsinline autoplay>
+          <source [src]="post.imageUrl" type="video/mp4">
+        </video>
+      }
+
+      @if (post.imageUrlFrontal) {
+        <div class="floating-selfie" (click)="intercambiarFotos()">
+          <img [src]="post.selfieEnGrande ? post.imageUrl : post.imageUrlFrontal">
+        </div>
+      }
+    </div>
+
+    @if (post.descripcion) {
+      <div class="post-description">
+        <p><b>{{ post.usuarioNombre }}</b> {{ post.descripcion }}</p>
+      </div>
+    }
+
+  } @else {
+    <div class="ion-text-center ion-padding">
+      <p style="color: gray;">Este post ya no existe.</p>
+    </div>
+  }
+</ion-content>

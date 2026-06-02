@@ -1,0 +1,368 @@
+ion-toolbar {
+  --background: rgba(255, 255, 255, 0.5);
+  --border-style: none;
+  --border-width: 0;
+  border: none;
+}
+
+//carrusel de categorias
+ion-header {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.row-flex {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+ion-item {
+  --border-radius: 12px;
+  --highlight-color-focused: #8A2BE2;
+}
+
+
+swiper-container {
+  padding: 15px 0;
+}
+
+.categoria-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.circulo-categoria {
+  padding: 3px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.selected {
+    background: #8A2BE2;
+
+    ion-icon {
+      --color: #ffffff;
+      color: #ffffff;
+    }
+
+    .categoria-slide{
+      background: #8A2BE2;
+    }
+  }
+}
+
+.categoria-slide {
+  background: white;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background: #e7dbf6;
+  ion-icon {
+    color: #8A2BE2;
+  }
+}
+
+.categoria-etiqueta {
+  font-size: 0.75rem;
+  color: #333;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//selector fecha y hora
+
+.datetime-grid {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.custom-pill {
+  background: #f3f1f1;
+  border-radius: 30px;
+  padding: 15px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .pill-label {
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: #666e80;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+
+  }
+
+  .pill-content {
+    display: flex;
+    align-items: center;
+
+
+    ion-datetime-button {
+      &::part(native) {
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #222428;
+      }
+    }
+  }
+}
+
+
+//barra buscadora google maps
+
+.buscador-container{
+  width: 100%;
+  height: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.input-autocomplete {
+  border: none;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  font-size: 0.95rem;
+  padding: 5px 0;
+}
+
+.mapa-redondeado {
+  display: block;
+  margin-top: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+
+.pac-container {
+  z-index: 20000 !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border: none;
+}
+
+.pac-item {
+  padding: 10px;
+  cursor: pointer;
+  &:hover { background-color: #f4f5f8; }
+}
+
+//descripcion actividad
+
+.descripcion-actividad {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 100%;
+
+
+  ion-textarea {
+    margin-top: 10px;
+    padding: 15px;
+    width: 100%;
+    min-height: 120px;
+    border: #decdf5 dashed 5px;
+    border-radius: 25px;
+
+
+    &::part(native) {
+      min-height: 120px;
+    }
+  }
+}
+
+
+//numero participantes
+.participante-container {
+  background: #f3f1f1;
+  border-radius: 20px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+
+  .text-container {
+    .main-label {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d3436;
+    }
+    .sub-label {
+      margin: 2px 0 0;
+      font-size: 0.85rem;
+      color: #8a94a6;
+    }
+  }
+}
+
+.counter-pill {
+  background: white;
+  border-radius: 40px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
+  .counter-number {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2d3436;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  ion-button {
+    width: 38px;
+    height: 38px;
+    --border-radius: 50%;
+    --padding-start: 0;
+    --padding-end: 0;
+    margin: 0;
+
+    &.btn-minus {
+      --background: #7044ff;
+      --color: white;
+
+    }
+
+    &[disabled] {
+      opacity: 0.3;
+      cursor: not-allowed;
+      --background: white;
+      --color: #999;
+    }
+
+    &.btn-plus {
+      --background: #7044ff;
+      --color: white;
+    }
+
+    &[disabled] {
+      opacity: 0.3;
+      cursor: not-allowed;
+      --background: #eee;
+      --color: #999;
+    }
+  }
+}
+
+//tipo actividad gratis o pago
+.precio-pill{
+  background: white;
+  border-radius: 40px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  font-size: 1.2rem;
+}
+
+.access-type-container {
+
+  .segment-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+
+    .segment-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1a2a3a;
+    }
+
+    .info-icon {
+      color: #8a94a6;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+ion-segment {
+  --background: #e0e6ed;
+  border-radius: 30px;
+  padding: 4px;
+  height: 50px;
+  border: none;
+
+  &::part(indicator) {
+    display: none;
+  }
+}
+
+ion-segment-button {
+  --color: #8a94a6;
+  --color-checked: #1a2a3a;
+  --border-radius: 25px;
+  --indicator-box-shadow: none;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  margin: 0;
+  font-weight: 700;
+  text-transform: none;
+
+  &.segment-button-checked {
+    --background-checked: white;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  ion-label {
+    font-size: 0.95rem;
+    letter-spacing: -0.2px;
+  }
+}
+
+//selector de imagenes
+.capture-zone-no-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 175px;
+  border-radius: 25px;
+  border: 4px dashed #decdf5;
+  background: #f1edf6;
+  margin-top: 15px;
+}
+
+.capture-zone-preview {
+  margin-top: 15px;
+  width: 100%;
+  height: 175px;
+  overflow: hidden;
+  border-radius: 25px;
+  border: 4px dashed #decdf5;
+  position: relative;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

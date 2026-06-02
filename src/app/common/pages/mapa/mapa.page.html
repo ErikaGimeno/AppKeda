@@ -1,0 +1,126 @@
+<ion-content [fullscreen]="true">
+
+  <div class="search-container">
+    <ion-searchbar class="searchbar-keda-map"
+      placeholder="Buscar planes o categorías..."
+      (ionInput)="aplicarFiltro($event)"
+      [debounce]="300"
+      [animated]=true
+      mode="ios">
+    </ion-searchbar>
+  </div>
+
+  <google-map
+    height="100%"
+    width="100%"
+    [center]="center"
+    [mapId]="'975233a4254580bb3220dbd4'"
+    [zoom]="zoom"
+    [options]="mapOptions"
+    (idle)="cargarMapa()">
+
+    @for (pin of pinesVisibles; track pin.id) {
+      <map-advanced-marker
+        [position]="{ lat: pin.lat, lng: pin.lng }"
+        [content]="crearMarker(pin)"
+        (mapClick)="openModal(pin)">
+      </map-advanced-marker>
+    }
+  </google-map>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-centrar">
+    <ion-fab-button (click)="centrarEnMiUbicacion()" color="light">
+      <ion-icon name="locate" color="primary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+<!--  Modal de previsualización de la actividad, se activa seleccionando un pin en el mapa-->
+  <ion-modal #modalActividadDetalle [initialBreakpoint]="0.30" [breakpoints]="[0, 0.30, 1.0]">
+    <ion-content class="ion-padding">
+
+      @if (actividadSeleccionada()) {
+        <div class="header-image-container">
+          <img [src]="actividadSeleccionada().imageUrl" class="main-photo">
+        </div>
+        <div class="main-container">
+          <div class="header-section">
+            <div class="title-row">
+              <h1>{{ actividadSeleccionada()?.titulo }}</h1>
+              <span class="price-badge" [class.free]="actividadSeleccionada()?.precio === 0">
+              {{ actividadSeleccionada()?.precio === 0 ? 'Gratis' : actividadSeleccionada()?.precio + '€' }}
+            </span>
+            </div>
+            <p class="subtitle">
+              <ion-icon [name]="obtenerIcono(actividadSeleccionada()!.categoria)"></ion-icon>
+              {{ actividadSeleccionada()?.categoria }}  •  Abierto a todos
+            </p>
+          </div>
+
+          <div class="section">
+            <h3>About</h3>
+            <p class="description-text">{{ actividadSeleccionada()?.descripcion }}</p>
+          </div>
+
+          <div class="host-card">
+            <ion-avatar>
+              <img [src]="imagenAnfitrion()" />
+            </ion-avatar>
+            <div class="host-info">
+              <span class="label">Anfitrion</span>
+              <span class="name">{{ nombreAnfitrion() }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-circle purple">
+              <ion-icon name="calendar"></ion-icon>
+            </div>
+            <div class="info-content">
+              <span class="main-text">{{ actividadSeleccionada()?.fechaInicio?.toDate() | date:'EEEE, MMMM d' }} -
+                {{ actividadSeleccionada()?.fechaInicio?.toDate() | date:'h:mm a' }}
+              </span>
+
+
+              <span class="sub-text">
+              {{ actividadSeleccionada()?.fechaFin?.toDate() | date:'EEEE, MMMM d' }} -
+                {{ actividadSeleccionada()?.fechaFin?.toDate() | date:'h:mm a' }}
+            </span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-circle red">
+              <ion-icon name="location"></ion-icon>
+            </div>
+            <div class="info-content">
+              <span class="main-text">{{ actividadSeleccionada()?.direccion }}</span>
+              <span class="sub-text">Toca para ver direcciones</span>
+            </div>
+          </div>
+
+          <div class="participants-section">
+            <h3>Quién Viene?</h3>
+            <div class="participants-row">
+              <div class="avatar-stack">
+                <div class="more-count">+{{ actividadSeleccionada()?.participantesUids?.length }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-footer">
+            <ion-button expand="block" class="join-btn"
+                        (click)="unirmeAActividad()"
+                        [disabled]="actividadSeleccionada()?.participantesUids?.includes(uidUsuario())"
+                        [style.--background]="actividadSeleccionada()?.participantesUids?.includes(uidUsuario()) ? 'success' : '#8A2BE2'">
+
+              {{ actividadSeleccionada()?.participantesUids?.includes(uidUsuario()) ? 'Ya estás unido' : 'Unirse a Kedada' }}
+
+              <ion-icon [name]="actividadSeleccionada()?.participantesUids?.includes(uidUsuario()) ? 'checkmark-circle' : 'arrow-forward-outline'" slot="end"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      }
+
+    </ion-content>
+  </ion-modal>
+</ion-content>

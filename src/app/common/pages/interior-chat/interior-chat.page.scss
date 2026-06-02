@@ -1,0 +1,147 @@
+
+ion-content {
+  --background: var(--color-secundario);
+}
+
+//header del chat
+ion-toolbar {
+  --min-height: 70px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+
+  ion-back-button {
+    margin-left: 5px;
+  }
+}
+
+.icono-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.icono-grupo {
+  color: var(--color-primario);
+  background: var(--color-secundario);
+  padding: 8px;
+  border: dashed 2px var(--color-primario);
+  border-radius: 50%;
+  font-size: 22px;
+}
+
+ion-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+  padding-left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+//estilos para la conversación del chat, estilos de mensajes dependiendo del remitente
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 20px;
+
+}
+
+.message-wrapper {
+  display: flex;
+  width: 100%;
+  margin-bottom: 4px;
+
+  &.me {
+    justify-content: flex-end;
+
+    .message-bubble {
+      background-color: var(--color-primario);
+      color: white;
+      border-radius: 18px 18px 0px 18px;
+      box-shadow: 0 2px 4px rgba(56, 128, 255, 0.2);
+    }
+
+    .timestamp { color: rgba(255, 255, 255, 0.8); }
+  }
+
+  &.other {
+    justify-content: flex-start;
+
+    .message-bubble {
+      background-color: var(--color-neutral);
+      color: #333;
+      border-radius: 18px 18px 18px 0px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .timestamp { color: #888; }
+  }
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  position: relative;
+
+  .sender-name {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-primario);
+    margin-bottom: 4px;
+  }
+
+  .message-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .message-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+
+    .timestamp {
+      font-size: 0.65rem;
+    }
+  }
+}
+
+
+//estilos de la barra input para enviar el mensaje
+.enviar-container{
+  width: 100%;
+  height: 85px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .chat-input {
+    width: 92%;
+    --border-style: none;
+    --highlight-height: 0;
+
+    background: var(--color-neutral);
+    border-radius: 20px;
+    --padding-start: 15px;
+    --padding-end: 15px;
+    margin-left: 10px;
+    min-height: 40px;
+    --placeholder-color: var(--color-primario);
+  }
+
+  .button-send {
+    background: var(--color-primario);
+    border-radius: 50px;
+    width: 50px;
+    height: 35px;
+    margin-right: 10px;
+  }
+}
+
+

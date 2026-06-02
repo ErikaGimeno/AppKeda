@@ -1,0 +1,117 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="white">
+    <ion-title color="primary" class="ion-text-center" style="font-weight: 800; font-size: 22px;">
+      Keda
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="notifications" color="medium"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-white">
+  <ion-refresher slot="fixed" (ionRefresh)="cargarPostsIniciales($event)">
+    <ion-refresher-content pullingIcon="chevron-down" refreshingSpinner="circles"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="classic-feed">
+
+    @if (cargaInicial) {
+      <div class="ion-text-center ion-padding">
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+      </div>
+    }
+
+    @for (post of posts; track post.id; let i = $index) {
+      <div class="post-card">
+
+        <div class="post-header">
+          <img [src]="post.usuarioAvatar" class="avatar-img">
+          <div class="header-info">
+            <h3 class="user-name">{{ post.usuarioNombre }}</h3>
+            <p class="meta-info">{{ post.actividadNombre }} • {{ post.tiempo }}</p>
+          </div>
+          <ion-icon name="ellipsis-horizontal" class="more-options"></ion-icon>
+        </div>
+
+        <div class="media-container">
+
+          @if (post.tipoMedia === 'imagen' || !post.tipoMedia) {
+            <img [src]="post.selfieEnGrande ? post.imageUrlFrontal : post.imageUrl"
+                 class="main-media">
+          }
+
+          @if (post.tipoMedia === 'video') {
+            <video #videoElement class="main-media" loop muted playsinline preload="metadata">
+              <source [src]="post.imageUrl" type="video/mp4">
+            </video>
+          }
+
+          @if (post.imageUrlFrontal) {
+            <div class="floating-reaction" (click)="intercambiarFotos(post)">
+              <img [src]="post.selfieEnGrande ? post.imageUrl : post.imageUrlFrontal">
+            </div>
+          }
+        </div>
+
+        <div class="action-bar">
+          <div class="left-actions">
+            <div class="action-btn" (click)="toggleLike(post)">
+              <ion-icon [name]="post.haDadoLike ? 'heart' : 'heart'"
+                        [style.color]="post.haDadoLike ? '#8c52ff' : '#bbbac5'">
+              </ion-icon>
+              <span>{{ post.likesUids?.length || 0 }}</span>
+            </div>
+          </div>
+
+          @if (post.fechaFinActividad > Timestamp.now()){
+            <ion-button class="join-btn" shape="round" (click)="irActividadDetalle(post.actividadId)">
+              <div class="purple-dot"></div> Join Activity
+            </ion-button>
+          } @else {
+            <ion-button class="end-btn" shape="round">
+              <div class="red-dot" >
+              </div>Kedada Finalizada
+            </ion-button>
+          }
+
+        </div>
+
+        <div class="post-description">
+          <span class="bold-name">{{ post.usuarioNombre }}</span>
+          <span class="desc-text">{{ post.descripcion }}</span>
+        </div>
+      </div>
+
+      @if (getActividadRelacionada(i); as actividad) {
+        <div class="activity-card-ref" (click)="irActividadDetalle(actividad.id!)">
+          <div class="card-content-row">
+            <div class="card-image-wrapper">
+              <img [src]="actividad.imageUrl" class="card-image">
+            </div>
+            <div class="card-text-column">
+              <span class="card-timestamp">{{ actividad.fechaInicio.toDate() | date:'d MMM, H:mm' | uppercase }}</span>
+              <h3 class="card-title">{{ actividad.titulo }}</h3>
+              <p class="card-meta-grey">{{ actividad.nombreUbicacion }} • {{ actividad.categoria | uppercase}}</p>
+            </div>
+            <div class="card-right-stack">
+              <div class="avatar-stack">
+                <span class="badge-count">+{{ actividad.participantesUids?.length}}</span>
+              </div>
+              <ion-icon name="chevron-forward" class="chevron-icon"></ion-icon>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="cargarMasPosts($event)" [disabled]="!hayMasPost">
+    <ion-infinite-scroll-content loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
