@@ -48,6 +48,8 @@ export class TabsPage{
         direction: CameraDirection.Rear
       });
 
+      await new Promise(resolve => setTimeout(resolve, 600));
+
       const fotoFrontal = await Camera.getPhoto({
         quality: 80,
         allowEditing: false,
