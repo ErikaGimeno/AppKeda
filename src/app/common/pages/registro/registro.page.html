@@ -20,23 +20,29 @@
 
     <div class="formulario-registro">
       <ion-item lines="none" class="ion-margin-bottom">
-        <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="newUsuario.nombre" type="text" placeholder="Jane">
-          <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label position="stacked" [class.label-error]="errores.nombre">Nombre</ion-label>
+        <ion-input [(ngModel)]="newUsuario.nombre" type="text" placeholder="Jane"
+                   [class.input-error]="errores.nombre"
+                   (ionInput)="errores.nombre = false">
+          <ion-icon name="person" slot="start" [class.icon-error]="errores.nombre"></ion-icon>
         </ion-input>
       </ion-item>
 
       <ion-item lines="none" class="ion-margin-bottom">
-        <ion-label position="stacked">Apellidos</ion-label>
-        <ion-input [(ngModel)]="newUsuario.apellidos" type="text" placeholder="Doe Brown">
-          <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label position="stacked" [class.label-error]="errores.apellidos">Apellidos</ion-label>
+        <ion-input [(ngModel)]="newUsuario.apellidos" type="text" placeholder="Doe Brown"
+                   [class.input-error]="errores.apellidos"
+                   (ionInput)="errores.apellidos = false">
+          <ion-icon name="person" slot="start" [class.icon-error]="errores.apellidos"></ion-icon>
         </ion-input>
       </ion-item>
 
       <ion-item lines="none" class="ion-margin-bottom">
-        <ion-label position="stacked">Email</ion-label>
-        <ion-input [(ngModel)]="newUsuario.email" type="email" placeholder="example@example.com">
-          <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label position="stacked" [class.label-error]="errores.email">Email</ion-label>
+        <ion-input [(ngModel)]="newUsuario.email" type="email" placeholder="example@example.com"
+                   [class.input-error]="errores.email"
+                   (ionInput)="errores.email = false">
+          <ion-icon name="mail" slot="start" [class.icon-error]="errores.email"></ion-icon>
         </ion-input>
       </ion-item>
 
@@ -48,22 +54,25 @@
         </div>
       </ion-item>
 
-
       <ion-item lines="none" class="ion-margin-bottom">
-        <ion-label position="stacked">Ciudad</ion-label>
-        <ion-input [(ngModel)]="newUsuario.ciudad" type="text" placeholder="Valencia">
-          <ion-icon name="locate" slot="start"></ion-icon>
+        <ion-label position="stacked" [class.label-error]="errores.ciudad">Ciudad</ion-label>
+        <ion-input [(ngModel)]="newUsuario.ciudad" type="text" placeholder="Valencia"
+                   [class.input-error]="errores.ciudad"
+                   (ionInput)="errores.ciudad = false">
+          <ion-icon name="locate" slot="start" [class.icon-error]="errores.ciudad"></ion-icon>
         </ion-input>
       </ion-item>
 
       <ion-item lines="none" class="ion-margin-bottom keda-input-item">
-        <ion-label position="stacked">Password</ion-label>
+        <ion-label position="stacked" [class.label-error]="errores.password">Password</ion-label>
         <ion-input
           type="password"
           placeholder="• • • • • • • •"
           [(ngModel)]="password"
-          class="keda-custom-input">
-          <ion-icon name="lock-closed" slot="start"></ion-icon>
+          class="keda-custom-input"
+          [class.input-error]="errores.password"
+          (ionInput)="errores.password = false">
+          <ion-icon name="lock-closed" slot="start" [class.icon-error]="errores.password"></ion-icon>
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
       </ion-item>
@@ -78,7 +87,6 @@
         </ng-template>
       </ion-modal>
     </div>
-
 
     <div>
       <ion-item lines="none" class="keda-terms-item">

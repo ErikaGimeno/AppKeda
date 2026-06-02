@@ -179,3 +179,17 @@ ion-button:hover{
 }
 
 
+
+ion-input.input-error {
+  border-color: #ff4d4d !important;
+  background: #fff5f5 !important;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.2);
+}
+
+ion-label.label-error {
+  color: #ff4d4d !important;
+}
+
+.icon-error {
+  color: #ff4d4d !important;
+}

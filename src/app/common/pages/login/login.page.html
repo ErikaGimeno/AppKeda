@@ -12,21 +12,22 @@
       <div></div>
     </div>
 
-    <ion-item lines="none" class="ion-margin-bottom">
-      <ion-icon name="mail" slot="start"></ion-icon>
+    <ion-item lines="none" class="ion-margin-bottom" [class.item-error]="errorLogin">
+      <ion-icon name="mail" slot="start" [class.icon-error]="errorLogin"></ion-icon>
       <ion-input
         type="email"
         placeholder="Email"
-        [(ngModel)]="email">
-      </ion-input>
+        [(ngModel)]="email"
+        (ionInput)="errorLogin = false"> </ion-input>
     </ion-item>
 
-    <ion-item lines="none" class="ion-margin-bottom">
-      <ion-icon name="lock-closed" slot="start"></ion-icon>
+    <ion-item lines="none" class="ion-margin-bottom" [class.item-error]="errorLogin">
+      <ion-icon name="lock-closed" slot="start" [class.icon-error]="errorLogin"></ion-icon>
       <ion-input
         type="password"
         placeholder="Contraseña"
-        [(ngModel)]="password">
+        [(ngModel)]="password"
+        (ionInput)="errorLogin = false">
         <ion-input-password-toggle class="pass-toggle" slot="end"></ion-input-password-toggle>
       </ion-input>
     </ion-item>

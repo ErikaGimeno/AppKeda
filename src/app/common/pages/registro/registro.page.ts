@@ -30,6 +30,14 @@ export class RegistroPage {
   private toastCtrl = inject(ToastController);
   private ngZone = inject(NgZone);
 
+  errores = {
+    nombre: false,
+    apellidos: false,
+    email: false,
+    ciudad: false,
+    password: false
+  };
+
   newUsuario: Usuario = {
     uid: '',
     nombre: '',
@@ -72,23 +80,43 @@ export class RegistroPage {
   //llamamos al servicio registrar y metemos la información del formulario junto con la del objeto newUsuario por defecto
   //si el registro es correcto nos lleva a la pagina de intro
   async registrar() {
-    console.log('1. Click en registrar');
 
     if (!this.newUsuario) {
       console.error('ERROR: this.newUsuario no está inicializado');
       return;
     }
 
-    const nombre = this.newUsuario.nombre?.trim();
-    const apellidos = this.newUsuario.apellidos?.trim();
-    const email = this.newUsuario.email?.trim();
-    const pass = this.password?.trim();
+    this.errores = { nombre: false, apellidos: false, email: false, ciudad: false, password: false };
+    let hayErrores = false;
+    let mensajeErrorToast = 'Por favor, rellena todos los campos correctamente.';
 
-    console.log('Datos recogidos:', { nombre, apellidos, email, pass: '****', terminos: this.aceptaTerminos });
 
-    if (!nombre || !apellidos || !email || !pass) {
-      console.log('Abortado: Faltan datos');
-      await this.mostrarToast("Rellena todos los campos", "danger");
+    if (!this.newUsuario.nombre || this.newUsuario.nombre.trim() === '') { this.errores.nombre = true; hayErrores = true; }
+    if (!this.newUsuario.apellidos || this.newUsuario.apellidos.trim() === '') { this.errores.apellidos = true; hayErrores = true; }
+
+    if (!this.password || this.password.trim() === '') { this.errores.password = true; hayErrores = true; }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!this.newUsuario.email || !emailRegex.test(this.newUsuario.email.trim())) {
+      this.errores.email = true;
+      hayErrores = true;
+      mensajeErrorToast = 'El formato del correo no es válido.';
+    }
+
+
+    const ciudadRegex = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s]+$/;
+
+    if (!this.newUsuario.ciudad || this.newUsuario.ciudad.trim() === '') {
+      this.errores.ciudad = true;
+      hayErrores = true;
+    } else if (!ciudadRegex.test(this.newUsuario.ciudad.trim())) {
+      this.errores.ciudad = true;
+      hayErrores = true;
+      mensajeErrorToast = 'La ciudad no puede contener números ni símbolos.';
+    }
+
+    if (hayErrores) {
+      await this.mostrarToast(mensajeErrorToast, "danger");
       return;
     }
 
@@ -100,10 +128,14 @@ export class RegistroPage {
     }
 
     if (!this.aceptaTerminos) {
-      console.log('Abortado: Términos no aceptados');
       await this.mostrarToast("Debes aceptar los términos y condiciones", "danger");
       return;
     }
+
+    const nombre = this.newUsuario.nombre?.trim();
+    const apellidos = this.newUsuario.apellidos?.trim();
+    const email = this.newUsuario.email?.trim();
+    const pass = this.password?.trim();
 
     try {
 

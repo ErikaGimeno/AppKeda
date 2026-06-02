@@ -37,6 +37,7 @@ export class LoginPage {
   @ViewChild('modalForgot') modalForgot: IonModal;
   emailRecuperacion: string = '';
   errorRecuperacion: string = '';
+  errorLogin: boolean = false;
 
   constructor() {
     addIcons({
@@ -50,15 +51,50 @@ export class LoginPage {
   }
 
   async onLogin() {
+    if (!this.email || !this.password) {
+      this.errorLogin = true;
+      await this.mostrarToast('Por favor, rellena todos los campos');
+      return;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(this.email)) {
+      this.errorLogin = true;
+      await this.mostrarToast('El formato del correo electrónico no es válido.');
+      return;
+    }
 
     try {
-
       const credencialUsuario = await this.authService.login(this.email, this.password);
       await this.router.navigateByUrl('/tabs/home');
 
     } catch (error: any) {
+      this.errorLogin = true;
       console.error("Error detallado:", error);
+
+      let mensajeError = 'Error al iniciar sesión. Inténtalo de nuevo.';
+
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        mensajeError = 'Correo electrónico o contraseña incorrectos.';
+      } else if (error.code === 'auth/too-many-requests') {
+        mensajeError = 'Demasiados intentos fallidos. Inténtalo más tarde.';
+      }
+
+      await this.mostrarToast(mensajeError);
     }
+  }
+
+  async mostrarToast(mensaje: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'top',
+      color: 'danger',
+      icon: 'alert-circle-outline'
+    });
+    await toast.present();
+
   }
 
 
@@ -76,6 +112,7 @@ export class LoginPage {
       await this.modalForgot.dismiss();
 
     } catch (error: any) {
+
       this.errorRecuperacion = "No se pudo enviar el correo. Inténtalo de nuevo.";
 
       if (error.code === 'auth/user-not-found') {
