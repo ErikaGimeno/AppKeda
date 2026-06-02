@@ -18,7 +18,7 @@ import {Usuario} from "../../interfaces/user";
 import {addIcons} from "ionicons";
 import {add, camera, locate, close, chevronBack} from "ionicons/icons";
 import {Router} from "@angular/router";
-import {LoadingController, ToastController} from "@ionic/angular";
+import {LoadingController, ToastController} from "@ionic/angular/standalone";
 import {FirestoreService} from "../../services/firestoreService";
 import {AuthService} from "../../services/auth-service";
 

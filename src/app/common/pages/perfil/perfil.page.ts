@@ -12,7 +12,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Usuario} from "../../interfaces/user";
 import {Auth, user} from "@angular/fire/auth";
 import {doc, Firestore, getDoc, Timestamp} from "@angular/fire/firestore";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {FirestoreService} from "../../services/firestoreService";
 import {Actividad} from "../../interfaces/actividad";
 import {AuthService} from "../../services/auth-service";

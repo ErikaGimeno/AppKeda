@@ -22,7 +22,7 @@ import {collection, doc, Firestore, GeoPoint, setDoc, Timestamp} from "@angular/
 import {Auth} from "@angular/fire/auth";
 import * as geofire from 'geofire-common';
 import {Router, RouterLink} from '@angular/router';
-import {ToastController} from '@ionic/angular';
+import {ToastController} from '@ionic/angular/standalone';
 import {
   addSharp,
   americanFootball,

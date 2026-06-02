@@ -34,7 +34,7 @@ import {Geolocation} from "@capacitor/geolocation";
 import {addIcons} from "ionicons";
 import {locate, fastFoodOutline, beer, americanFootball, cafe,fastFood, musicalNotes, calendar, location} from "ionicons/icons";
 import {Router} from "@angular/router";
-import {ToastController} from "@ionic/angular";
+import {ToastController} from "@ionic/angular/standalone";
 import {Auth, authState} from "@angular/fire/auth";
 import {toSignal} from "@angular/core/rxjs-interop";
 import { map } from 'rxjs/operators';

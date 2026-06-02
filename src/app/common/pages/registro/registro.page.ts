@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular/standalone';
 import { AuthService } from "../../services/auth-service";
 import { Router } from "@angular/router";
-import { LoadingController, ToastController } from "@ionic/angular";
+import { LoadingController, ToastController } from "@ionic/angular/standalone";
 import { Usuario } from "../../interfaces/user";
 import { FirestoreService } from "../../services/firestoreService";
 import { addIcons } from "ionicons";

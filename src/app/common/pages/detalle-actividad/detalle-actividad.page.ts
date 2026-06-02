@@ -27,7 +27,7 @@ import {arrayRemove, arrayUnion, doc, Firestore, getDoc} from "@angular/fire/fir
 import {Actividad} from "../../interfaces/actividad";
 import {AuthService} from "../../services/auth-service";
 import {FirestoreService} from "../../services/firestoreService";
-import {LoadingController, ToastController} from "@ionic/angular";
+import {LoadingController, ToastController} from "@ionic/angular/standalone";
 import {firstValueFrom} from "rxjs";
 import {GoogleMapsModule} from "@angular/google-maps";
 

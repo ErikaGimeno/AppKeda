@@ -13,7 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import {AuthService} from "../../services/auth-service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {AlertController, LoadingController, ToastController} from "@ionic/angular";
+import {AlertController, LoadingController, ToastController} from "@ionic/angular/standalone";
 import {addIcons} from "ionicons";
 import {mail, lockClosed, arrowBackSharp, refreshOutline, keyOutline, mailOutline} from "ionicons/icons";
 

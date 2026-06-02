@@ -33,7 +33,7 @@ import {FirestoreService} from "../../services/firestoreService";
 import {Auth, authState} from "@angular/fire/auth";
 import {Mensaje} from "../../interfaces/mensaje";
 import {Usuario} from "../../interfaces/user";
-import {AlertController, ToastController} from "@ionic/angular";
+import {AlertController, ToastController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-interior-chat',

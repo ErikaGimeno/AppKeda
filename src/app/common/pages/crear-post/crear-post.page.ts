@@ -16,7 +16,7 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {FirestoreService} from "../../services/firestoreService";
 import {AuthService} from "../../services/auth-service";
-import {LoadingController, ToastController} from "@ionic/angular";
+import {LoadingController, ToastController} from "@ionic/angular/standalone";
 import {Actividad} from "../../interfaces/actividad";
 import {Timestamp} from "@angular/fire/firestore";
 import {firstValueFrom} from "rxjs";
