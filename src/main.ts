@@ -16,9 +16,7 @@ import { environment } from "./environments/environment";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {Capacitor} from "@capacitor/core";
 import {getMessaging, provideMessaging} from "@angular/fire/messaging";
-import {defineCustomElements} from "ionicons/dist/loader";
-
-defineCustomElements(window);
+import {defineCustomElements} from "@ionic/pwa-elements/loader";
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -42,3 +40,4 @@ bootstrapApplication(AppComponent, {
     provideAnimationsAsync(),
   ],
 });
+defineCustomElements(window);
