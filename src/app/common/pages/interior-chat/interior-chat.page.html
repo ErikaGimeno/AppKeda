@@ -3,19 +3,18 @@
 
     <ion-buttons slot="start">
       <ion-back-button text="" style="color: #8A2BE2" defaultHref="/tabs/chats" icon="arrow-back-sharp"></ion-back-button>
-
-      @if (actividadSeleccionada) {
-        <div class="icono-wrapper">
-          <ion-icon class="icono-grupo" [name]="obtenerIcono(actividadSeleccionada.categoria)"></ion-icon>
-        </div>
-      }
     </ion-buttons>
 
-    @if (actividadSeleccionada){
-      <ion-title>{{ actividadSeleccionada?.titulo || 'Cerrando chat...' }}</ion-title>
-    } @else {
-      <ion-title>Chat del Grupo</ion-title>
-    }
+    <ion-title>
+      <div class="title-container">
+        @if (actividadSeleccionada) {
+          <ion-icon class="icono-grupo" [name]="obtenerIcono(actividadSeleccionada.categoria)"></ion-icon>
+          <span class="titulo-texto">{{ actividadSeleccionada?.titulo || 'Cerrando chat...' }}</span>
+        } @else {
+          <span class="titulo-texto">Chat del Grupo</span>
+        }
+      </div>
+    </ion-title>
 
     <ion-buttons slot="end">
       @if (actividadSeleccionada){

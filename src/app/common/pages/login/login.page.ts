@@ -12,7 +12,7 @@ import {
   IonToolbar
 } from '@ionic/angular/standalone';
 import {AuthService} from "../../services/auth-service";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AlertController, LoadingController, ToastController} from "@ionic/angular";
 import {addIcons} from "ionicons";
 import {mail, lockClosed, arrowBackSharp, refreshOutline, keyOutline, mailOutline} from "ionicons/icons";
@@ -33,6 +33,7 @@ export class LoginPage {
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastCtrl = inject(ToastController);
+  private route = inject(ActivatedRoute);
 
   @ViewChild('modalForgot') modalForgot: IonModal;
   emailRecuperacion: string = '';
@@ -67,7 +68,8 @@ export class LoginPage {
 
     try {
       const credencialUsuario = await this.authService.login(this.email, this.password);
-      await this.router.navigateByUrl('/tabs/home');
+      const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/tabs/home';
+      await this.router.navigateByUrl(returnUrl);
 
     } catch (error: any) {
       this.errorLogin = true;

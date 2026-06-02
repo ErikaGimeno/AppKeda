@@ -3,15 +3,42 @@ ion-content {
   --background: var(--color-secundario);
 }
 
-//header del chat
+// --- ESTILOS DE LA CABECERA DEL CHAT ---
+
 ion-toolbar {
   --min-height: 70px;
   padding-top: 4px;
   padding-bottom: 4px;
+}
 
-  ion-back-button {
-    margin-left: 5px;
-  }
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.icono-grupo {
+  color: var(--color-primario);
+  background: var(--color-secundario);
+  padding: 6px;
+  border: dashed 2px var(--color-primario);
+  border-radius: 50%;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.titulo-texto {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ion-title {
+  padding-inline: 5px;
 }
 
 .icono-wrapper {

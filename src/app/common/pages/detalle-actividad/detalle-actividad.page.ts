@@ -89,6 +89,18 @@ export class DetalleActividadPage {
   }
 
   async ionViewWillEnter() {
+
+    const isLogged = await this.auth.getActualUser() !== null;
+
+    if (!isLogged) {
+      const urlDestino = this.router.url;
+
+      await this.router.navigate(['/login'], {
+        queryParams: { returnUrl: urlDestino }
+      });
+
+      return;
+    }
     this.actividadId = this.ruta.snapshot.paramMap.get('id') || '';
     if (this.actividadId) {
       await this.cargarDatos();
@@ -165,7 +177,7 @@ export class DetalleActividadPage {
       await Share.share({
         title: this.actividad.titulo,
         text: `¡Mira este planazo en Keda: ${this.actividad.titulo}!`,
-        url: `https://tuapp.com/actividad/${this.actividadId}`,
+        url: `https://app-keda.vercel.app/detalle-actividad/${this.actividadId}`,
         dialogTitle: 'Compartir con amigos',
       });
     } catch (e) {
